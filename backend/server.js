@@ -26,12 +26,18 @@ app.use(cors({
   credentials: true
 }));
 
-// Routes
+// Mount routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/orders', require('./routes/orders'));
+app.use('/api/users', require('./routes/users'));
 
 // Test route
 app.get('/', (req, res) => {
-  res.json({ message: 'API is running...' });
+  res.json({ 
+    message: 'API is running...',
+    version: '1.0.0'
+  });
 });
 
 // Error handler (must be after routes)

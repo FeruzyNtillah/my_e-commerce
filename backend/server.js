@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/errorHandler');
 
 // Load env vars
 dotenv.config();
@@ -25,10 +26,16 @@ app.use(cors({
   credentials: true
 }));
 
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+
 // Test route
 app.get('/', (req, res) => {
   res.json({ message: 'API is running...' });
 });
+
+// Error handler (must be after routes)
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 

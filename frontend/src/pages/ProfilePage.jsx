@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { updateUserProfile } from '../redux/slices/authSlice';
+import { updateUserProfile, updatePassword as updatePasswordAction, logout } from '../redux/slices/authSlice';
 import { getMyOrders } from '../redux/slices/orderSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -19,6 +19,7 @@ const ProfilePage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
     const [message, setMessage] = useState('');
 
     useEffect(() => {
@@ -40,15 +41,34 @@ const ProfilePage = () => {
         }
 
         try {
+            // Update profile info (name)
             const updateData = { name };
-            if (password) {
-                updateData.password = password;
+            await dispatch(updateUserProfile(updateData)).unwrap();
+
+            // Handle password update if fields are filled
+            if (currentPassword || password || confirmPassword) {
+                if (!currentPassword || !password || !confirmPassword) {
+                    setMessage('Please fill all password fields to change your password');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    setMessage('New passwords do not match');
+                    return;
+                }
+
+                await dispatch(updatePasswordAction({ currentPassword, newPassword: password })).unwrap();
+
+                toast.success('Password updated successfully! Please login again.');
+                dispatch(logout());
+                navigate('/login');
+                return;
             }
 
-            await dispatch(updateUserProfile(updateData)).unwrap();
             toast.success('Profile updated successfully!');
             setPassword('');
             setConfirmPassword('');
+            setCurrentPassword('');
             setMessage('');
         } catch (err) {
             toast.error(err || 'Failed to update profile');
@@ -93,10 +113,21 @@ const ProfilePage = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>Password</label>
+                                <label>Current Password</label>
                                 <input
                                     type="password"
-                                    placeholder="Enter new password (leave blank to keep current)"
+                                    placeholder="Enter current password"
+                                    value={currentPassword}
+                                    onChange={(e) => setCurrentPassword(e.target.value)}
+                                    className="form-control"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>New Password</label>
+                                <input
+                                    type="password"
+                                    placeholder="Enter new password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className="form-control"
@@ -104,7 +135,7 @@ const ProfilePage = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>Confirm Password</label>
+                                <label>Confirm New Password</label>
                                 <input
                                     type="password"
                                     placeholder="Confirm new password"

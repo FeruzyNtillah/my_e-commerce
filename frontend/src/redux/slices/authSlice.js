@@ -102,6 +102,32 @@ export const updateUserProfile = createAsyncThunk(
     }
 );
 
+// Update password
+export const updatePassword = createAsyncThunk(
+    'auth/updatePassword',
+    async (passwordData, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.userInfo.token}`
+                }
+            };
+            const { data } = await axios.put(
+                `${API_URL}/auth/updatepassword`,
+                passwordData,
+                config
+            );
+            return data;
+        } catch (error) {
+            return rejectWithValue(
+                error.response?.data?.message || 'Password update failed'
+            );
+        }
+    }
+);
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,

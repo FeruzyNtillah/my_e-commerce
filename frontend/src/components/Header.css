@@ -75,16 +75,8 @@
     min-width: 200px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    margin-top: 0.5rem;
     padding: 0.5rem 0;
-}
-
-.dropdown-menu::before {
-    content: '';
-    position: absolute;
-    top: -0.5rem;
-    left: 0;
-    right: 0;
-    height: 0.5rem;
 }
 
 .dropdown:hover .dropdown-menu {

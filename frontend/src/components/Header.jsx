@@ -41,9 +41,6 @@ const Header = () => {
                                     <span>{userInfo.user.name}</span>
                                 </button>
                                 <div className="dropdown-menu">
-                                    <Link to="/" className="dropdown-item">
-                                        Home
-                                    </Link>
                                     <Link to="/profile" className="dropdown-item">
                                         Profile
                                     </Link>

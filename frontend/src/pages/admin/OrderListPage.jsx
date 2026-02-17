@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FaEye, FaTrash } from 'react-icons/fa';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import { formatCurrency } from '../../utils/currency';
 import { toast } from 'react-toastify';
 import './AdminPages.css';
 
@@ -124,7 +125,7 @@ const OrderListPage = () => {
                                     <td>{order._id.substring(0, 8)}...</td>
                                     <td>{order.user?.name || 'N/A'}</td>
                                     <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-                                    <td>${order.totalPrice}</td>
+                                    <td>{formatCurrency(order.totalPrice)}</td>
                                     <td>
                                         {order.isPaid ? (
                                             <span className="badge badge-success">Paid</span>

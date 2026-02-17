@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOrderById, payOrder } from '../redux/slices/orderSlice';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { formatCurrency } from '../utils/currency';
 import { toast } from 'react-toastify';
 import './OrderPage.css';
 
@@ -105,8 +106,7 @@ const OrderPage = () => {
                                         <div className="order-item-info">
                                             <h4>{item.name}</h4>
                                             <p>
-                                                {item.quantity} x ${item.price} = $
-                                                {(item.quantity * item.price).toFixed(2)}
+                                                {item.quantity} x {formatCurrency(item.price)} = {formatCurrency(item.quantity * item.price)}
                                             </p>
                                         </div>
                                     </div>
@@ -128,22 +128,22 @@ const OrderPage = () => {
 
                             <div className="summary-row">
                                 <span>Items:</span>
-                                <span>${order.itemsPrice}</span>
+                                <span>{formatCurrency(order.itemsPrice)}</span>
                             </div>
 
                             <div className="summary-row">
                                 <span>Shipping:</span>
-                                <span>${order.shippingPrice}</span>
+                                <span>{formatCurrency(order.shippingPrice)}</span>
                             </div>
 
                             <div className="summary-row">
                                 <span>Tax:</span>
-                                <span>${order.taxPrice}</span>
+                                <span>{formatCurrency(order.taxPrice)}</span>
                             </div>
 
                             <div className="summary-total">
                                 <span>Total:</span>
-                                <span>${order.totalPrice}</span>
+                                <span>{formatCurrency(order.totalPrice)}</span>
                             </div>
 
                             {!order.isPaid && (

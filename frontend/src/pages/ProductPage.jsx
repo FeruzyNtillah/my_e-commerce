@@ -7,6 +7,7 @@ import { addToCart } from '../redux/slices/cartSlice';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import { formatCurrency } from '../utils/currency';
 import { toast } from 'react-toastify';
 import './ProductPage.css';
 
@@ -90,7 +91,7 @@ const ProductPage = () => {
                         <Rating value={product.ratings} text={`${product.numReviews} reviews`} />
 
                         <div className="product-price-section">
-                            <h2 className="price">${product.price}</h2>
+                            <h2 className="price">{formatCurrency(product.price)}</h2>
                             <div className="stock-status">
                                 {product.stock > 0 ? (
                                     <span className="in-stock">In Stock ({product.stock} available)</span>

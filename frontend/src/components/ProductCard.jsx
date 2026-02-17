@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
+import { formatCurrency } from '../utils/currency';
 import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
@@ -29,7 +30,7 @@ const ProductCard = ({ product }) => {
                 />
 
                 <div className="product-footer">
-                    <span className="product-price">${product.price}</span>
+                    <span className="product-price">{formatCurrency(product.price)}</span>
                     {product.stock > 0 && product.stock < 10 && (
                         <span className="stock-warning">Only {product.stock} left!</span>
                     )}

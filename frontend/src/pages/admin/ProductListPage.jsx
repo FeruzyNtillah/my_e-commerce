@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import Loader from '../../components/Loader';
 import Message from '../../components/Message';
+import { formatCurrency } from '../../utils/currency';
 import { toast } from 'react-toastify';
 import './AdminPages.css';
 
@@ -99,7 +100,7 @@ const ProductListPage = () => {
                                         />
                                     </td>
                                     <td>{product.name}</td>
-                                    <td>${product.price}</td>
+                                    <td>{formatCurrency(product.price)}</td>
                                     <td>{product.category}</td>
                                     <td>{product.brand}</td>
                                     <td>

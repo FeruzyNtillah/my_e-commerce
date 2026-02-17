@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../redux/slices/orderSlice';
 import { clearCart } from '../redux/slices/cartSlice';
 import Message from '../components/Message';
+import { formatCurrency } from '../utils/currency';
 import { toast } from 'react-toastify';
 import './CheckoutPages.css';
 
@@ -84,8 +85,7 @@ const PlaceOrderPage = () => {
                                             <div className="order-item-info">
                                                 <h4>{item.name}</h4>
                                                 <p>
-                                                    {item.quantity} x ${item.price} = $
-                                                    {(item.quantity * item.price).toFixed(2)}
+                                                    {item.quantity} x {formatCurrency(item.price)} = {formatCurrency(item.quantity * item.price)}
                                                 </p>
                                             </div>
                                         </div>
@@ -100,22 +100,22 @@ const PlaceOrderPage = () => {
 
                         <div className="summary-row">
                             <span>Items:</span>
-                            <span>${cart.itemsPrice}</span>
+                            <span>{formatCurrency(cart.itemsPrice)}</span>
                         </div>
 
                         <div className="summary-row">
                             <span>Shipping:</span>
-                            <span>${cart.shippingPrice}</span>
+                            <span>{formatCurrency(cart.shippingPrice)}</span>
                         </div>
 
                         <div className="summary-row">
                             <span>Tax:</span>
-                            <span>${cart.taxPrice}</span>
+                            <span>{formatCurrency(cart.taxPrice)}</span>
                         </div>
 
                         <div className="summary-total">
                             <span>Total:</span>
-                            <span>${cart.totalPrice}</span>
+                            <span>{formatCurrency(cart.totalPrice)}</span>
                         </div>
 
                         {error && <Message variant="danger">{error}</Message>}

@@ -105,7 +105,7 @@ const HomePage = () => {
                             type="number"
                             value={filters.minPrice}
                             onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                            placeholder="$0"
+                            placeholder="TZS 0"
                             className="form-control"
                         />
                     </div>
@@ -116,7 +116,7 @@ const HomePage = () => {
                             type="number"
                             value={filters.maxPrice}
                             onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                            placeholder="$10000"
+                            placeholder="TZS 10,000,000"
                             className="form-control"
                         />
                     </div>

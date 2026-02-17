@@ -119,35 +119,39 @@ exports.getMe = async (req, res) => {
 // @access  Private
 exports.updateProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    // Build only the fields that were actually sent — never overwrite with undefined
+    const updateFields = {};
 
-    if (!user) {
+    if (req.body.name) updateFields.name = req.body.name;
+    if (req.body.phone) updateFields.phone = req.body.phone;
+    if (req.body.avatar) updateFields.avatar = req.body.avatar;
+
+    // Email updates: only allow if a new value is explicitly provided
+    // (keeping email disabled in the form is safest — skip it here)
+    // if (req.body.email) updateFields.email = req.body.email;
+
+    // Merge address sub-fields if any are provided
+    if (req.body.address) {
+      // Use dot-notation keys so only sent sub-fields are touched in MongoDB
+      const addr = req.body.address;
+      if (addr.street) updateFields['address.street'] = addr.street;
+      if (addr.city) updateFields['address.city'] = addr.city;
+      if (addr.state) updateFields['address.state'] = addr.state;
+      if (addr.zipCode) updateFields['address.zipCode'] = addr.zipCode;
+      if (addr.country) updateFields['address.country'] = addr.country;
+    }
+
+    // findByIdAndUpdate avoids triggering the full Mongoose validation
+    // pipeline (password hash hooks, unique index conflicts, etc.)
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: updateFields },
+      { new: true, runValidators: false }
+    );
+
+    if (!updatedUser) {
       return res.status(404).json({ message: 'User not found' });
     }
-
-    // Update fields
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.phone = req.body.phone || user.phone;
-    user.avatar = req.body.avatar || user.avatar;
-
-    // Update address if provided
-    if (req.body.address) {
-      user.address = {
-        street: req.body.address.street || user.address?.street,
-        city: req.body.address.city || user.address?.city,
-        state: req.body.address.state || user.address?.state,
-        zipCode: req.body.address.zipCode || user.address?.zipCode,
-        country: req.body.address.country || user.address?.country
-      };
-    }
-
-    // Update password if provided
-    if (req.body.password) {
-      user.password = req.body.password; // Will be hashed by pre-save
-    }
-
-    const updatedUser = await user.save();
 
     res.json({
       success: true,
@@ -162,7 +166,7 @@ exports.updateProfile = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error(error);
+    console.error('updateProfile error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -174,22 +178,41 @@ exports.updatePassword = async (req, res) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
+    // --- FIX: Validate inputs before touching the DB ---
     if (!currentPassword || !newPassword) {
       return res.status(400).json({
-        message: 'Please provide current and new password'
+        message: 'Please provide both current password and new password'
       });
     }
 
-    // Get user with password
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        message: 'New password must be at least 6 characters'
+      });
+    }
+
+    // --- FIX: Always explicitly select +password here ---
+    // req.user from protect middleware does NOT include password field,
+    // so we must re-query the user with .select('+password')
     const user = await User.findById(req.user._id).select('+password');
 
-    // Check current password
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // --- FIX: Guard against missing matchPassword method ---
+    if (typeof user.matchPassword !== 'function') {
+      console.error('matchPassword method is missing on User model');
+      return res.status(500).json({ message: 'Server configuration error' });
+    }
+
+    // Check current password against the hashed one in DB
     const isMatch = await user.matchPassword(currentPassword);
     if (!isMatch) {
       return res.status(401).json({ message: 'Current password is incorrect' });
     }
 
-    // Update password
+    // Assign new password — pre-save hook will hash it automatically
     user.password = newPassword;
     await user.save();
 
@@ -198,7 +221,8 @@ exports.updatePassword = async (req, res) => {
       message: 'Password updated successfully. Please login again.'
     });
   } catch (error) {
-    console.error(error);
+    // --- FIX: Log the full error so you can debug future issues ---
+    console.error('updatePassword error:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };

@@ -130,7 +130,7 @@ exports.updateProfile = async (req, res) => {
     user.email = req.body.email || user.email;
     user.phone = req.body.phone || user.phone;
     user.avatar = req.body.avatar || user.avatar;
-    
+
     // Update address if provided
     if (req.body.address) {
       user.address = {
@@ -175,8 +175,8 @@ exports.updatePassword = async (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
     if (!currentPassword || !newPassword) {
-      return res.status(400).json({ 
-        message: 'Please provide current and new password' 
+      return res.status(400).json({
+        message: 'Please provide current and new password'
       });
     }
 
@@ -193,13 +193,9 @@ exports.updatePassword = async (req, res) => {
     user.password = newPassword;
     await user.save();
 
-    // Generate new token
-    const token = generateToken(user._id);
-
     res.json({
       success: true,
-      message: 'Password updated successfully',
-      token
+      message: 'Password updated successfully. Please login again.'
     });
   } catch (error) {
     console.error(error);

@@ -17,11 +17,16 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
-import MyOrdersPage from './pages/OrderListPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
+
+// Static Pages
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
 
 // Admin Pages
 import ProductListPage from './pages/admin/ProductListPage';
@@ -45,6 +50,12 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+
+              {/* Static Pages */}
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/terms" element={<TermsPage />} />
 
               {/* Protected Routes */}
               <Route
@@ -91,7 +102,7 @@ function App() {
                 path="/orders"
                 element={
                   <PrivateRoute>
-                    <MyOrdersPage />
+                    <ProfilePage />
                   </PrivateRoute>
                 }
               />

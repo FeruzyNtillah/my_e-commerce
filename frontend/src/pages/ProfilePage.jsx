@@ -40,7 +40,7 @@ const ProfilePage = () => {
         }
 
         try {
-            const updateData = { name, email };
+            const updateData = { name };
             if (password) {
                 updateData.password = password;
             }
@@ -88,6 +88,7 @@ const ProfilePage = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="form-control"
+                                    disabled
                                 />
                             </div>
 

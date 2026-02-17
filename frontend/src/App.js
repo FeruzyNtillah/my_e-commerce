@@ -17,6 +17,7 @@ import CartPage from './pages/CartPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import MyOrdersPage from './pages/OrderListPage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
@@ -90,7 +91,7 @@ function App() {
                 path="/orders"
                 element={
                   <PrivateRoute>
-                    <ProfilePage />
+                    <MyOrdersPage />
                   </PrivateRoute>
                 }
               />

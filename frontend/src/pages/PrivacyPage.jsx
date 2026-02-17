@@ -105,9 +105,9 @@ const PrivacyPage = () => {
               please contact us at:
             </p>
             <p>
-              Email: privacy@shophub.com<br />
-              Phone: +1 (555) 123-4567<br />
-              Address: 123 Shopping Street, New York, NY 10001
+              Email: feruzykarim4@gmail.com<br />
+              Phone: +(255) 693 641 585<br />
+            Address: Kunduchi Mtongani, Dar es Salaam, Tanzania.
             </p>
           </section>
         </div>

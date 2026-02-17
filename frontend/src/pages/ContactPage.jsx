@@ -46,8 +46,8 @@ const ContactPage = () => {
               <FaEnvelope className="contact-icon" />
               <div>
                 <h3>Email</h3>
-                <p>support@shophub.com</p>
-                <p>sales@shophub.com</p>
+                <p>feruzykarim4@gmail.com</p>
+                <p>feyrouz10@icloud.com</p>
               </div>
             </div>
 
@@ -55,8 +55,8 @@ const ContactPage = () => {
               <FaPhone className="contact-icon" />
               <div>
                 <h3>Phone</h3>
-                <p>+1 (555) 123-4567</p>
-                <p>+1 (555) 987-6543</p>
+                <p>+(255) 693 641 585</p>
+                <p>+(255) 623 798 919</p>
               </div>
             </div>
 
@@ -64,9 +64,9 @@ const ContactPage = () => {
               <FaMapMarkerAlt className="contact-icon" />
               <div>
                 <h3>Address</h3>
-                <p>123 Shopping Street</p>
-                <p>New York, NY 10001</p>
-                <p>United States</p>
+                <p>Kunduchi Mtongani</p>
+                <p>Dar es Salaam, BOX 95885</p>
+                <p>Tanzania</p>
               </div>
             </div>
 

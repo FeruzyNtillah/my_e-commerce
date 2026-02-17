@@ -161,9 +161,9 @@ const TermsPage = () => {
               If you have any questions about these Terms, please contact us:
             </p>
             <p>
-              Email: legal@shophub.com<br />
-              Phone: +1 (555) 123-4567<br />
-              Address: 123 Shopping Street, New York, NY 10001
+              Email: feruzykarim4@gmail.com<br />
+              Phone: +(255) 693 641 585<br />
+              Address: Kunduchi Mtongani, Dar es Salaam, Tanzania
             </p>
           </section>
         </div>

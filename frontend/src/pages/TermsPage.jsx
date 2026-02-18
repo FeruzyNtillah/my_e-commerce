@@ -7,7 +7,7 @@ const TermsPage = () => {
       <div className="container">
         <div className="static-content">
           <h1>Terms of Service</h1>
-          <p className="last-updated">Last Updated: February 17, 2026</p>
+          <p className="last-updated">Last Updated: February 01, 2026</p>
 
           <section className="policy-section">
             <h2>1. Agreement to Terms</h2>
@@ -151,7 +151,7 @@ const TermsPage = () => {
             <h2>13. Governing Law</h2>
             <p>
               These Terms shall be governed by and construed in accordance with the laws of the
-              State of New York, without regard to its conflict of law provisions.
+              United Republic of Tanzania, without regard to its conflict of law provisions.
             </p>
           </section>
 

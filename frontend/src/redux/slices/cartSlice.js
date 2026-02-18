@@ -39,18 +39,14 @@ const cartSlice = createSlice({
                 state.cartItems.push(item);
             }
 
-            // Update prices
-            state.itemsPrice = Number(state.cartItems.reduce(
-                (acc, item) => acc + item.price * item.quantity,
+            // Update prices with proper floating-point precision
+            state.itemsPrice = Math.round((state.cartItems.reduce(
+                (acc, item) => acc + (item.price * item.quantity * 100),
                 0
-            ).toFixed(2));
+            ) / 100) * 100) / 100;
             state.shippingPrice = 0; // No shipping costs for local market
-            state.taxPrice = Number((0.05 * state.itemsPrice).toFixed(2)); // 5% Tax
-            state.totalPrice = (
-                Number(state.itemsPrice) +
-                Number(state.shippingPrice) +
-                Number(state.taxPrice)
-            ).toFixed(2);
+            state.taxPrice = Math.round((state.itemsPrice * 0.05) * 100) / 100; // 5% Tax
+            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice + state.taxPrice) * 100)) / 100;
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
@@ -58,17 +54,13 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((x) => x.product !== action.payload);
 
             // Update prices
-            state.itemsPrice = Number(state.cartItems.reduce(
-                (acc, item) => acc + item.price * item.quantity,
+            state.itemsPrice = Math.round((state.cartItems.reduce(
+                (acc, item) => acc + (item.price * item.quantity * 100),
                 0
-            ).toFixed(2));
+            ) / 100) * 100) / 100;
             state.shippingPrice = 0;
-            state.taxPrice = Number((0.05 * state.itemsPrice).toFixed(2));
-            state.totalPrice = (
-                Number(state.itemsPrice) +
-                Number(state.shippingPrice) +
-                Number(state.taxPrice)
-            ).toFixed(2);
+            state.taxPrice = Math.round((state.itemsPrice * 0.05) * 100) / 100;
+            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice + state.taxPrice) * 100)) / 100;
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },

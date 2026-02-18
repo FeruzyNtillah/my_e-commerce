@@ -148,11 +148,6 @@ const PlaceOrderPage = () => {
                             <span>TZS {Number(cart.itemsPrice).toLocaleString()}</span>
                         </div>
 
-                        <div className="summary-row">
-                            <span>Tax (5%):</span>
-                            <span>TZS {Number(cart.taxPrice).toLocaleString()}</span>
-                        </div>
-
                         <div className="summary-total">
                             <span>Total:</span>
                             <span>TZS {Number(cart.totalPrice).toLocaleString()}</span>

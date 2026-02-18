@@ -10,7 +10,7 @@ const CartPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { cartItems, itemsPrice, taxPrice, totalPrice } = useSelector(
+    const { cartItems, itemsPrice, totalPrice } = useSelector(
         (state) => state.cart
     );
 
@@ -81,11 +81,6 @@ const CartPage = () => {
                             <div className="summary-item">
                                 <span>Items ({cartItems.reduce((acc, item) => acc + item.quantity, 0)}):</span>
                                 <span>TZS {Number(itemsPrice).toLocaleString()}</span>
-                            </div>
-
-                            <div className="summary-item">
-                                <span>Tax (5%):</span>
-                                <span>TZS {Number(taxPrice).toLocaleString()}</span>
                             </div>
 
                             <div className="summary-total">

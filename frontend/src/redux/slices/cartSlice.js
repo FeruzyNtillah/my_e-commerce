@@ -45,8 +45,8 @@ const cartSlice = createSlice({
                 0
             ) / 100) * 100) / 100;
             state.shippingPrice = 0; // No shipping costs for local market
-            state.taxPrice = Math.round((state.itemsPrice * 0.05) * 100) / 100; // 5% Tax
-            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice + state.taxPrice) * 100)) / 100;
+            state.taxPrice = 0; // Tax already included in product prices
+            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice) * 100)) / 100;
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },
@@ -59,8 +59,8 @@ const cartSlice = createSlice({
                 0
             ) / 100) * 100) / 100;
             state.shippingPrice = 0;
-            state.taxPrice = Math.round((state.itemsPrice * 0.05) * 100) / 100;
-            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice + state.taxPrice) * 100)) / 100;
+            state.taxPrice = 0; // Tax already included in product prices
+            state.totalPrice = Math.round(((state.itemsPrice + state.shippingPrice) * 100)) / 100;
 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         },

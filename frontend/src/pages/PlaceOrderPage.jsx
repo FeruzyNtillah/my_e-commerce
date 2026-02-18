@@ -88,11 +88,21 @@ const PlaceOrderPage = () => {
                 <div className="place-order-content">
                     <div className="order-review">
                         <div className="order-section">
-                            <h2>Shipping Details</h2>
+                            <h2>Delivery Details</h2>
                             <p>
-                                <strong>Address:</strong> {cart.shippingAddress.street},{' '}
-                                {cart.shippingAddress.city}, {cart.shippingAddress.state}{' '}
-                                {cart.shippingAddress.zipCode}, {cart.shippingAddress.country}
+                                <strong>Residence:</strong> {cart.shippingAddress.residence}
+                            </p>
+                            <p>
+                                <strong>District:</strong> {cart.shippingAddress.district}
+                            </p>
+                            <p>
+                                <strong>Region:</strong> {cart.shippingAddress.region}
+                            </p>
+                            <p>
+                                <strong>Country:</strong> {cart.shippingAddress.country}
+                            </p>
+                            <p>
+                                <strong>Mobile Number:</strong> {cart.shippingAddress.mobileNumber}
                             </p>
                         </div>
 
@@ -139,12 +149,7 @@ const PlaceOrderPage = () => {
                         </div>
 
                         <div className="summary-row">
-                            <span>Shipping:</span>
-                            <span>TZS {Number(cart.shippingPrice).toLocaleString()}</span>
-                        </div>
-
-                        <div className="summary-row">
-                            <span>Tax (18% VAT):</span>
+                            <span>Tax (5%):</span>
                             <span>TZS {Number(cart.taxPrice).toLocaleString()}</span>
                         </div>
 

@@ -83,12 +83,13 @@ const OrderPage = () => {
                         </div>
 
                         <div className="order-section">
-                            <h2>Shipping Address</h2>
+                            <h2>Delivery Details</h2>
                             <p>
-                                {order.shippingAddress.street}<br />
-                                {order.shippingAddress.city}, {order.shippingAddress.state}<br />
-                                {order.shippingAddress.zipCode}<br />
-                                {order.shippingAddress.country}
+                                <strong>Residence:</strong> {order.shippingAddress.residence}<br />
+                                <strong>District:</strong> {order.shippingAddress.district}<br />
+                                <strong>Region:</strong> {order.shippingAddress.region}<br />
+                                <strong>Country:</strong> {order.shippingAddress.country}<br />
+                                <strong>Mobile Number:</strong> {order.shippingAddress.mobileNumber}
                             </p>
                             {order.isDelivered ? (
                                 <Message variant="success">
@@ -175,12 +176,7 @@ const OrderPage = () => {
                             </div>
 
                             <div className="summary-row">
-                                <span>Shipping:</span>
-                                <span>TZS {Number(order.shippingPrice).toLocaleString()}</span>
-                            </div>
-
-                            <div className="summary-row">
-                                <span>Tax (18% VAT):</span>
+                                <span>Tax (5%):</span>
                                 <span>TZS {Number(order.taxPrice).toLocaleString()}</span>
                             </div>
 

@@ -40,12 +40,12 @@ const cartSlice = createSlice({
             }
 
             // Update prices
-            state.itemsPrice = state.cartItems.reduce(
+            state.itemsPrice = Number(state.cartItems.reduce(
                 (acc, item) => acc + item.price * item.quantity,
                 0
-            );
-            state.shippingPrice = 0; // No shipping costs for Tanzanian market
-            state.taxPrice = Number((0.18 * state.itemsPrice).toFixed(2)); // 18% VAT
+            ).toFixed(2));
+            state.shippingPrice = 0; // No shipping costs for local market
+            state.taxPrice = Number((0.05 * state.itemsPrice).toFixed(2)); // 5% Tax
             state.totalPrice = (
                 Number(state.itemsPrice) +
                 Number(state.shippingPrice) +
@@ -58,12 +58,12 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((x) => x.product !== action.payload);
 
             // Update prices
-            state.itemsPrice = state.cartItems.reduce(
+            state.itemsPrice = Number(state.cartItems.reduce(
                 (acc, item) => acc + item.price * item.quantity,
                 0
-            );
+            ).toFixed(2));
             state.shippingPrice = 0;
-            state.taxPrice = Number((0.18 * state.itemsPrice).toFixed(2));
+            state.taxPrice = Number((0.05 * state.itemsPrice).toFixed(2));
             state.totalPrice = (
                 Number(state.itemsPrice) +
                 Number(state.shippingPrice) +

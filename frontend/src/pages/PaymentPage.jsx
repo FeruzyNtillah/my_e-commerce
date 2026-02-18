@@ -14,7 +14,7 @@ const PaymentPage = () => {
     const [selectedProvider, setSelectedProvider] = useState('');
 
     // Redirect if no shipping address
-    if (!shippingAddress.street) {
+    if (!shippingAddress.residence) {
         navigate('/shipping');
     }
 

@@ -8,11 +8,11 @@ const ShippingPage = () => {
     const { shippingAddress } = useSelector((state) => state.cart);
 
     const [address, setAddress] = useState({
-        street: shippingAddress.street || '',
-        city: shippingAddress.city || '',
-        state: shippingAddress.state || '',
-        zipCode: shippingAddress.zipCode || '',
-        country: shippingAddress.country || ''
+        residence: shippingAddress.residence || '',
+        district: shippingAddress.district || '',
+        region: shippingAddress.region || '',
+        country: shippingAddress.country || 'Tanzania',
+        mobileNumber: shippingAddress.mobileNumber || ''
     });
 
     const dispatch = useDispatch();
@@ -34,66 +34,64 @@ const ShippingPage = () => {
                 </div>
 
                 <div className="checkout-card">
-                    <h1>Shipping Address</h1>
+                    <h1>Delivery Details</h1>
 
                     <form onSubmit={submitHandler}>
                         <div className="form-group">
-                            <label>Street Address</label>
+                            <label>Residence (Street/House Address)</label>
                             <input
                                 type="text"
-                                placeholder="Enter street address"
-                                value={address.street}
-                                onChange={(e) => setAddress({ ...address, street: e.target.value })}
+                                placeholder="Enter your street/house address"
+                                value={address.residence}
+                                onChange={(e) => setAddress({ ...address, residence: e.target.value })}
                                 className="form-control"
                                 required
                             />
                         </div>
 
                         <div className="form-group">
-                            <label>City</label>
+                            <label>District</label>
                             <input
                                 type="text"
-                                placeholder="Enter city"
-                                value={address.city}
-                                onChange={(e) => setAddress({ ...address, city: e.target.value })}
+                                placeholder="Enter your district"
+                                value={address.district}
+                                onChange={(e) => setAddress({ ...address, district: e.target.value })}
                                 className="form-control"
                                 required
                             />
                         </div>
 
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label>State</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter state"
-                                    value={address.state}
-                                    onChange={(e) => setAddress({ ...address, state: e.target.value })}
-                                    className="form-control"
-                                    required
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label>Zip Code</label>
-                                <input
-                                    type="text"
-                                    placeholder="Enter zip code"
-                                    value={address.zipCode}
-                                    onChange={(e) => setAddress({ ...address, zipCode: e.target.value })}
-                                    className="form-control"
-                                    required
-                                />
-                            </div>
+                        <div className="form-group">
+                            <label>Region</label>
+                            <input
+                                type="text"
+                                placeholder="Enter your region"
+                                value={address.region}
+                                onChange={(e) => setAddress({ ...address, region: e.target.value })}
+                                className="form-control"
+                                required
+                            />
                         </div>
 
                         <div className="form-group">
                             <label>Country</label>
                             <input
                                 type="text"
-                                placeholder="Enter country"
+                                placeholder="Country"
                                 value={address.country}
                                 onChange={(e) => setAddress({ ...address, country: e.target.value })}
+                                className="form-control"
+                                disabled
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Mobile Number</label>
+                            <input
+                                type="tel"
+                                placeholder="Enter your mobile number"
+                                value={address.mobileNumber}
+                                onChange={(e) => setAddress({ ...address, mobileNumber: e.target.value })}
                                 className="form-control"
                                 required
                             />

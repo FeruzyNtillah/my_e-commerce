@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { savePaymentMethod } from '../redux/slices/cartSlice';
-import './CheckoutPages.css';
+import { PAYMENT_PROVIDERS } from '../utils/paymentSimulator';
+import './PaymentPage.css';
 
 const PaymentPage = () => {
     const { shippingAddress } = useSelector((state) => state.cart);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [paymentMethod, setPaymentMethod] = useState('Credit Card');
+    const [paymentCategory, setPaymentCategory] = useState('mobile_money');
+    const [selectedProvider, setSelectedProvider] = useState('');
 
     // Redirect if no shipping address
     if (!shippingAddress.street) {
@@ -18,7 +20,17 @@ const PaymentPage = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(savePaymentMethod(paymentMethod));
+
+        if (!selectedProvider) {
+            alert('Please select a payment method');
+            return;
+        }
+
+        dispatch(savePaymentMethod({
+            method: paymentCategory === 'mobile_money' ? 'Mobile Money' : 'Mobile Banking',
+            provider: selectedProvider
+        }));
+
         navigate('/placeorder');
     };
 
@@ -32,47 +44,93 @@ const PaymentPage = () => {
                 </div>
 
                 <div className="checkout-card">
-                    <h1>Payment Method</h1>
+                    <h1>Select Payment Method</h1>
+                    <p className="payment-subtitle">Choose your preferred payment method</p>
 
                     <form onSubmit={submitHandler}>
-                        <div className="form-group">
-                            <label className="radio-label">
-                                <input
-                                    type="radio"
-                                    value="Credit Card"
-                                    checked={paymentMethod === 'Credit Card'}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
-                                />
-                                <span>Credit Card</span>
-                            </label>
+                        {/* Payment Category Selection */}
+                        <div className="payment-category">
+                            <button
+                                type="button"
+                                className={`category-btn ${paymentCategory === 'mobile_money' ? 'active' : ''}`}
+                                onClick={() => {
+                                    setPaymentCategory('mobile_money');
+                                    setSelectedProvider('');
+                                }}
+                            >
+                                📱 Mobile Money
+                            </button>
+                            <button
+                                type="button"
+                                className={`category-btn ${paymentCategory === 'mobile_banking' ? 'active' : ''}`}
+                                onClick={() => {
+                                    setPaymentCategory('mobile_banking');
+                                    setSelectedProvider('');
+                                }}
+                            >
+                                🏦 Mobile Banking
+                            </button>
                         </div>
 
-                        <div className="form-group">
-                            <label className="radio-label">
-                                <input
-                                    type="radio"
-                                    value="PayPal"
-                                    checked={paymentMethod === 'PayPal'}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
-                                />
-                                <span>PayPal</span>
-                            </label>
-                        </div>
+                        {/* Mobile Money Options */}
+                        {paymentCategory === 'mobile_money' && (
+                            <div className="payment-options">
+                                <h3>Mobile Money Providers</h3>
+                                {Object.values(PAYMENT_PROVIDERS.MOBILE_MONEY).map((provider) => (
+                                    <label key={provider.code} className="payment-option">
+                                        <input
+                                            type="radio"
+                                            name="provider"
+                                            value={provider.code}
+                                            checked={selectedProvider === provider.code}
+                                            onChange={(e) => setSelectedProvider(e.target.value)}
+                                        />
+                                        <div className="provider-card">
+                                            <div className="provider-logo">{provider.logo}</div>
+                                            <div className="provider-info">
+                                                <h4>{provider.name}</h4>
+                                                <p className="provider-instructions">{provider.instructions}</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                ))}
+                            </div>
+                        )}
 
-                        <div className="form-group">
-                            <label className="radio-label">
-                                <input
-                                    type="radio"
-                                    value="Cash on Delivery"
-                                    checked={paymentMethod === 'Cash on Delivery'}
-                                    onChange={(e) => setPaymentMethod(e.target.value)}
-                                />
-                                <span>Cash on Delivery</span>
-                            </label>
+                        {/* Mobile Banking Options */}
+                        {paymentCategory === 'mobile_banking' && (
+                            <div className="payment-options">
+                                <h3>Mobile Banking Providers</h3>
+                                {Object.values(PAYMENT_PROVIDERS.MOBILE_BANKING).map((provider) => (
+                                    <label key={provider.code} className="payment-option">
+                                        <input
+                                            type="radio"
+                                            name="provider"
+                                            value={provider.code}
+                                            checked={selectedProvider === provider.code}
+                                            onChange={(e) => setSelectedProvider(e.target.value)}
+                                        />
+                                        <div className="provider-card">
+                                            <div className="provider-logo">{provider.logo}</div>
+                                            <div className="provider-info">
+                                                <h4>{provider.name}</h4>
+                                                <p className="provider-instructions">{provider.instructions}</p>
+                                            </div>
+                                        </div>
+                                    </label>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="payment-notice">
+                            <p>
+                                <strong>Note:</strong> This is a simulated payment system for educational purposes.
+                                No real money will be charged.
+                            </p>
                         </div>
 
                         <button type="submit" className="btn btn-primary btn-block">
-                            Continue
+                            Continue to Review Order
                         </button>
                     </form>
                 </div>

@@ -16,6 +16,7 @@ const initialState = {
     cartItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
     paymentMethod: paymentMethodFromStorage,
+    paymentProvider: localStorage.getItem('paymentProvider') || '',
     itemsPrice: 0,
     shippingPrice: 0,
     taxPrice: 0,
@@ -43,8 +44,8 @@ const cartSlice = createSlice({
                 (acc, item) => acc + item.price * item.quantity,
                 0
             );
-            state.shippingPrice = state.itemsPrice > 100 ? 0 : 10;
-            state.taxPrice = Number((0.1 * state.itemsPrice).toFixed(2));
+            state.shippingPrice = 0; // No shipping costs for Tanzanian market
+            state.taxPrice = Number((0.18 * state.itemsPrice).toFixed(2)); // 18% VAT
             state.totalPrice = (
                 Number(state.itemsPrice) +
                 Number(state.shippingPrice) +
@@ -61,8 +62,8 @@ const cartSlice = createSlice({
                 (acc, item) => acc + item.price * item.quantity,
                 0
             );
-            state.shippingPrice = state.itemsPrice > 100 ? 0 : 10;
-            state.taxPrice = Number((0.1 * state.itemsPrice).toFixed(2));
+            state.shippingPrice = 0;
+            state.taxPrice = Number((0.18 * state.itemsPrice).toFixed(2));
             state.totalPrice = (
                 Number(state.itemsPrice) +
                 Number(state.shippingPrice) +
@@ -76,8 +77,10 @@ const cartSlice = createSlice({
             localStorage.setItem('shippingAddress', JSON.stringify(action.payload));
         },
         savePaymentMethod: (state, action) => {
-            state.paymentMethod = action.payload;
-            localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
+            state.paymentMethod = action.payload.method;
+            state.paymentProvider = action.payload.provider;
+            localStorage.setItem('paymentMethod', JSON.stringify(action.payload.method));
+            localStorage.setItem('paymentProvider', action.payload.provider);
         },
         clearCart: (state) => {
             state.cartItems = [];

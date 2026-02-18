@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
 import { addToCart, removeFromCart } from '../redux/slices/cartSlice';
 import Message from '../components/Message';
-import { formatCurrency } from '../utils/currency';
 import './CartPage.css';
 
 const CartPage = () => {
@@ -45,7 +44,7 @@ const CartPage = () => {
 
                                     <div className="cart-item-details">
                                         <h3>{item.name}</h3>
-                                        <p className="cart-item-price">{formatCurrency(item.price)}</p>
+                                        <p className="cart-item-price">TZS {Number(item.price).toLocaleString()}</p>
                                     </div>
 
                                     <select
@@ -75,27 +74,28 @@ const CartPage = () => {
 
                             <div className="summary-item">
                                 <span>Items ({cartItems.reduce((acc, item) => acc + item.quantity, 0)}):</span>
-                                <span>{formatCurrency(itemsPrice)}</span>
+                                <span>TZS {Number(itemsPrice).toLocaleString()}</span>
                             </div>
 
                             <div className="summary-item">
                                 <span>Shipping:</span>
-                                <span>{formatCurrency(shippingPrice)}</span>
+                                <span>TZS {Number(shippingPrice).toLocaleString()}</span>
                             </div>
 
                             <div className="summary-item">
-                                <span>Tax:</span>
-                                <span>{formatCurrency(taxPrice)}</span>
+                                <span>Tax (18% VAT):</span>
+                                <span>TZS {Number(taxPrice).toLocaleString()}</span>
                             </div>
 
                             <div className="summary-total">
                                 <span>Total:</span>
-                                <span>{formatCurrency(totalPrice)}</span>
+                                <span>TZS {Number(totalPrice).toLocaleString()}</span>
                             </div>
 
                             <button onClick={checkoutHandler} className="btn btn-primary btn-block">
                                 Proceed to Checkout
                             </button>
+
                         </div>
                     </div>
                 )}

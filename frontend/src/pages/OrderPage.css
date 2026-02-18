@@ -48,3 +48,110 @@
         position: static;
     }
 }
+
+.order-date {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.payment-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin: 1rem 0;
+}
+
+.provider-logo {
+    font-size: 2rem;
+}
+
+.transaction-id {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-family: monospace;
+}
+
+.status-note {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+}
+
+.payment-note {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.paid-status {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.success-checkmark {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #28a745;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.paid-status p {
+    color: #28a745;
+    font-weight: 600;
+    margin: 0;
+}
+
+.status-badge-shipped {
+    background: #17a2b8;
+    color: white;
+}
+
+.status-badge-delivered {
+    background: #28a745;
+    color: white;
+}
+
+.status-badge-cancelled {
+    background: #dc3545;
+    color: white;
+}
+
+.payment-method-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.payment-security-note {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.payment-security-note p {
+    margin: 0.25rem 0;
+    color: #666;
+}
+
+.small-text {
+    font-size: 0.8rem;
+}

@@ -1,0 +1,122 @@
+.payment-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.payment-category {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    padding: 1.5rem;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.category-btn:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+}
+
+.category-btn.active {
+    border-color: #007bff;
+    background: #007bff;
+    color: white;
+}
+
+.payment-options {
+    margin-bottom: 2rem;
+}
+
+.payment-options h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.payment-option {
+    display: block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.provider-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.3s;
+}
+
+.payment-option input[type="radio"]:checked+.provider-card {
+    border-color: #007bff;
+    background: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.provider-card:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.provider-logo {
+    font-size: 3rem;
+    flex-shrink: 0;
+}
+
+.provider-info {
+    flex: 1;
+}
+
+.provider-info h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.provider-instructions {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.payment-notice {
+    padding: 1rem;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+}
+
+.payment-notice p {
+    margin: 0;
+    color: #856404;
+}
+
+@media (max-width: 768px) {
+    .payment-category {
+        grid-template-columns: 1fr;
+    }
+
+    .provider-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}

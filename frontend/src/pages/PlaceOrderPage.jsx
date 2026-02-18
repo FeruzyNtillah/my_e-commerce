@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../redux/slices/orderSlice';
 import { clearCart } from '../redux/slices/cartSlice';
+import { getProviderDetails } from '../utils/paymentSimulator';
+import PaymentModal from '../components/PaymentModal';
 import Message from '../components/Message';
-import { formatCurrency } from '../utils/currency';
 import { toast } from 'react-toastify';
 import './CheckoutPages.css';
 
@@ -15,16 +16,23 @@ const PlaceOrderPage = () => {
     const cart = useSelector((state) => state.cart);
     const { order, loading, error, success } = useSelector((state) => state.orders);
 
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [orderCreated, setOrderCreated] = useState(null);
+
+    const providerDetails = getProviderDetails(cart.paymentProvider);
+
     useEffect(() => {
-        if (success && order) {
+        if (success && order && orderCreated) {
+            // Order created and paid successfully
             dispatch(clearCart());
             navigate(`/order/${order._id}`);
         }
-    }, [success, order, navigate, dispatch]);
+    }, [success, order, navigate, dispatch, orderCreated]);
 
     const placeOrderHandler = async () => {
         try {
-            await dispatch(
+            // Create order first
+            const result = await dispatch(
                 createOrder({
                     orderItems: cart.cartItems.map(item => ({
                         name: item.name,
@@ -41,9 +49,31 @@ const PlaceOrderPage = () => {
                     totalPrice: cart.totalPrice
                 })
             ).unwrap();
+
+            setOrderCreated(result.order);
+
+            // Show payment modal
+            setShowPaymentModal(true);
         } catch (err) {
-            toast.error(err || 'Failed to place order');
+            toast.error(err || 'Failed to create order');
         }
+    };
+
+    const handlePaymentSuccess = async (paymentResult) => {
+        toast.success('Payment successful!');
+        setShowPaymentModal(false);
+
+        // The order is already created, just redirect
+        // In a real app, you would update the order payment status here
+        setTimeout(() => {
+            dispatch(clearCart());
+            navigate(`/order/${orderCreated._id}`);
+        }, 1000);
+    };
+
+    const handlePaymentClose = () => {
+        setShowPaymentModal(false);
+        // Optionally, you could delete the created order here if payment was cancelled
     };
 
     return (
@@ -58,7 +88,7 @@ const PlaceOrderPage = () => {
                 <div className="place-order-content">
                     <div className="order-review">
                         <div className="order-section">
-                            <h2>Shipping</h2>
+                            <h2>Shipping Details</h2>
                             <p>
                                 <strong>Address:</strong> {cart.shippingAddress.street},{' '}
                                 {cart.shippingAddress.city}, {cart.shippingAddress.state}{' '}
@@ -68,9 +98,13 @@ const PlaceOrderPage = () => {
 
                         <div className="order-section">
                             <h2>Payment Method</h2>
-                            <p>
-                                <strong>Method:</strong> {cart.paymentMethod}
-                            </p>
+                            <div className="payment-method-display">
+                                <span className="provider-logo">{providerDetails?.logo}</span>
+                                <div>
+                                    <p><strong>Method:</strong> {cart.paymentMethod}</p>
+                                    <p><strong>Provider:</strong> {providerDetails?.name}</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="order-section">
@@ -85,7 +119,8 @@ const PlaceOrderPage = () => {
                                             <div className="order-item-info">
                                                 <h4>{item.name}</h4>
                                                 <p>
-                                                    {item.quantity} x {formatCurrency(item.price)} = {formatCurrency(item.quantity * item.price)}
+                                                    {item.quantity} x TZS {Number(item.price).toLocaleString()} = TZS{' '}
+                                                    {(item.quantity * item.price).toLocaleString()}
                                                 </p>
                                             </div>
                                         </div>
@@ -100,22 +135,22 @@ const PlaceOrderPage = () => {
 
                         <div className="summary-row">
                             <span>Items:</span>
-                            <span>{formatCurrency(cart.itemsPrice)}</span>
+                            <span>TZS {Number(cart.itemsPrice).toLocaleString()}</span>
                         </div>
 
                         <div className="summary-row">
                             <span>Shipping:</span>
-                            <span>{formatCurrency(cart.shippingPrice)}</span>
+                            <span>TZS {Number(cart.shippingPrice).toLocaleString()}</span>
                         </div>
 
                         <div className="summary-row">
-                            <span>Tax:</span>
-                            <span>{formatCurrency(cart.taxPrice)}</span>
+                            <span>Tax (18% VAT):</span>
+                            <span>TZS {Number(cart.taxPrice).toLocaleString()}</span>
                         </div>
 
                         <div className="summary-total">
                             <span>Total:</span>
-                            <span>{formatCurrency(cart.totalPrice)}</span>
+                            <span>TZS {Number(cart.totalPrice).toLocaleString()}</span>
                         </div>
 
                         {error && <Message variant="danger">{error}</Message>}
@@ -126,11 +161,25 @@ const PlaceOrderPage = () => {
                             disabled={cart.cartItems.length === 0 || loading}
                             onClick={placeOrderHandler}
                         >
-                            {loading ? 'Processing...' : 'Place Order'}
+                            {loading ? 'Creating Order...' : 'Place Order & Pay'}
                         </button>
+
+                        <div className="payment-security-note">
+                            <p>🔒 Secure payment processing</p>
+                            <p className="small-text">Your payment information is encrypted and secure</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            {/* Payment Modal */}
+            <PaymentModal
+                isOpen={showPaymentModal}
+                onClose={handlePaymentClose}
+                onSuccess={handlePaymentSuccess}
+                provider={cart.paymentProvider}
+                amount={cart.totalPrice} // TZS amount
+            />
         </div>
     );
 };

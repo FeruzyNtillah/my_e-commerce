@@ -21,6 +21,7 @@ import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderPage from './pages/OrderPage';
+import MyOrdersPage from './pages/OrderListPage';
 
 // Static Pages
 import AboutPage from './pages/AboutPage';
@@ -102,7 +103,7 @@ function App() {
                 path="/orders"
                 element={
                   <PrivateRoute>
-                    <ProfilePage />
+                    <MyOrdersPage />
                   </PrivateRoute>
                 }
               />

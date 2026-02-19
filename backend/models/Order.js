@@ -18,11 +18,11 @@ const orderSchema = new mongoose.Schema({
     }
   }],
   shippingAddress: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zipCode: { type: String, required: true },
-    country: { type: String, required: true },
+    street: { type: String, required: false },
+    city: { type: String, required: false },
+    state: { type: String, required: false },
+    zipCode: { type: String, required: false },
+    country: { type: String, required: false },
     // Optional fields - not required
     mobileNumber: { type: String, required: false },
     region: { type: String, required: false },

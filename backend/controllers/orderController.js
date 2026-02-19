@@ -8,13 +8,26 @@ exports.createOrder = async (req, res) => {
   try {
     const {
       orderItems,
-      shippingAddress,
+      shippingAddress: shippingAddressRaw,
       paymentMethod,
       itemsPrice,
       taxPrice,
       shippingPrice,
       totalPrice
     } = req.body;
+
+    // Normalize shippingAddress from frontend (support different field names)
+    const shippingAddress = {
+      street: (shippingAddressRaw && (shippingAddressRaw.street || shippingAddressRaw.residence)) || '',
+      city: (shippingAddressRaw && (shippingAddressRaw.city || shippingAddressRaw.district)) || '',
+      state: (shippingAddressRaw && (shippingAddressRaw.state || shippingAddressRaw.region)) || '',
+      zipCode: (shippingAddressRaw && (shippingAddressRaw.zipCode || shippingAddressRaw.postalCode)) || '',
+      country: (shippingAddressRaw && shippingAddressRaw.country) || '',
+      mobileNumber: (shippingAddressRaw && (shippingAddressRaw.mobileNumber || shippingAddressRaw.phone)) || '',
+      region: (shippingAddressRaw && shippingAddressRaw.region) || '',
+      district: (shippingAddressRaw && shippingAddressRaw.district) || '',
+      residence: (shippingAddressRaw && shippingAddressRaw.residence) || ''
+    };
 
     // Validation
     if (!orderItems || orderItems.length === 0) {

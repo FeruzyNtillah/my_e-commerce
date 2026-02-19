@@ -1,111 +1,216 @@
 .profile-page {
-    padding: 2rem 0;
-    min-height: 100vh;
+  padding: 2rem 0;
+  min-height: 100vh;
 }
 
 .profile-page h1 {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .profile-content {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .profile-form-section,
 .orders-section {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
 }
 
 .profile-form-section h2,
 .orders-section h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .orders-table {
-    overflow-x: auto;
+  overflow-x: auto;
 }
 
 .orders-table table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .orders-table th,
 .orders-table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
 }
 
 .orders-table th {
-    background-color: #f8f9fa;
-    font-weight: 600;
+  background-color: #f8f9fa;
+  font-weight: 600;
 }
 
 .orders-table tr:hover {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
 }
 
 .badge {
-    padding: 0.25rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.75rem;
-    font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 .badge-success {
-    background-color: #d4edda;
-    color: #155724;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .badge-danger {
-    background-color: #f8d7da;
-    color: #721c24;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .badge-warning {
-    background-color: #fff3cd;
-    color: #856404;
+  background-color: #fff3cd;
+  color: #856404;
 }
 
 .btn-sm {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
 .btn-sm:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
 @media (max-width: 768px) {
-    .profile-content {
-        grid-template-columns: 1fr;
-    }
+  .profile-page {
+    padding: 1.5rem 0;
+  }
 
-    .orders-table {
-        font-size: 0.875rem;
-    }
+  .profile-page h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+  }
 
-    .orders-table th,
-    .orders-table td {
-        padding: 0.5rem;
-    }
+  .profile-content {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-form-section,
+  .orders-section {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .profile-form-section h2,
+  .orders-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .orders-table {
+    font-size: 0.9rem;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 0.75rem;
+  }
+
+  .btn-sm {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .profile-page {
+    padding: 1rem 0;
+  }
+
+  .profile-page h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-content {
+    align-items: stretch;
+  }
+
+  .profile-form-section,
+  .orders-section {
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .profile-form-section h2,
+  .orders-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .orders-table {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .orders-table table {
+    font-size: 0.8rem;
+    width: 100%;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 0.5rem 0.25rem;
+    text-align: left;
+  }
+
+  .orders-table th {
+    background-color: #f0f0f0;
+  }
+
+  .badge {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.65rem;
+  }
+
+  .btn-sm {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.7rem;
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  .btn-sm:hover {
+    opacity: 0.9;
+  }
 }
 
 .form-control:disabled {
-    background-color: #e9ecef;
-    cursor: not-allowed;
-    color: #6c757d;
+  background-color: #e9ecef;
+  cursor: not-allowed;
+  color: #6c757d;
 }

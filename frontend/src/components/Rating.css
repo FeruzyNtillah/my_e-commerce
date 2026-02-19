@@ -1,16 +1,50 @@
 .rating {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 0.5rem 0;
 }
 
 .rating span {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .rating-text {
-    margin-left: 0.5rem;
-    font-size: 0.875rem;
-    color: #666;
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .rating {
+    gap: 2px;
+    margin: 0.4rem 0;
+  }
+
+  .rating span {
+    font-size: 0.85rem;
+  }
+
+  .rating-text {
+    margin-left: 0.4rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .rating {
+    gap: 1px;
+    margin: 0.3rem 0;
+  }
+
+  .rating span {
+    font-size: 0.8rem;
+  }
+
+  .rating-text {
+    margin-left: 0.3rem;
+    font-size: 0.75rem;
+  }
 }

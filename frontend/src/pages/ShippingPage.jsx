@@ -20,7 +20,23 @@ const ShippingPage = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(saveShippingAddress(address));
+
+        // Normalize address for backend while keeping existing frontend fields
+        const normalized = {
+            // keep original fields used in UI
+            residence: address.residence,
+            district: address.district,
+            region: address.region,
+            country: address.country,
+            mobileNumber: address.mobileNumber,
+            // add canonical fields expected by backend
+            street: address.residence,
+            city: address.district,
+            state: address.region,
+            zipCode: ''
+        };
+
+        dispatch(saveShippingAddress(normalized));
         navigate('/payment');
     };
 

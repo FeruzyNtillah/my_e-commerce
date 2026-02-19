@@ -18,22 +18,29 @@ const orderSchema = new mongoose.Schema({
     }
   }],
   shippingAddress: {
-    residence: { type: String, required: true },
-    district: { type: String, required: true },
-    region: { type: String, required: true },
+    street: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zipCode: { type: String, required: true },
     country: { type: String, required: true },
-    mobileNumber: { type: String, required: true }
+    // Optional fields - not required
+    mobileNumber: { type: String, required: false },
+    region: { type: String, required: false },
+    district: { type: String, required: false },
+    residence: { type: String, required: false }
   },
   paymentMethod: {
     type: String,
     required: true,
-    enum: ['Credit Card', 'PayPal', 'Cash on Delivery']
+    enum: ['Credit Card', 'PayPal', 'Cash on Delivery', 'Mobile Money', 'Mobile Banking']
   },
   paymentResult: {
     id: String,
     status: String,
     update_time: String,
-    email_address: String
+    email_address: String,
+    provider: String,
+    phone_number: String
   },
   itemsPrice: {
     type: Number,

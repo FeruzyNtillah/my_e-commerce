@@ -19,7 +19,7 @@
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  max-width: 900px;
   width: 100%;
   margin: 0 auto;
 }
@@ -37,6 +37,37 @@
 .orders-table table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 15%; /* ID column */
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+  width: 20%; /* Date column */
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 20%; /* Total column */
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 15%; /* Paid column */
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 15%; /* Delivered column */
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+  width: 15%; /* Actions column */
 }
 
 .orders-table th,
@@ -73,6 +104,37 @@
 }
 
 .badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.status-icon.paid {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-icon.unpaid {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-icon.delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-icon.pending {
   background-color: #fff3cd;
   color: #856404;
 }

@@ -52,16 +52,16 @@ const MyOrdersPage = () => {
                                             <td>TZS {order.totalPrice}</td>
                                             <td>
                                                 {order.isPaid ? (
-                                                    <span className="badge badge-success">Paid</span>
+                                                    <span className="status-icon paid">✓</span>
                                                 ) : (
-                                                    <span className="badge badge-danger">Not Paid</span>
+                                                    <span className="status-icon unpaid">✗</span>
                                                 )}
                                             </td>
                                             <td>
                                                 {order.isDelivered ? (
-                                                    <span className="badge badge-success">Delivered</span>
+                                                    <span className="status-icon delivered">✓</span>
                                                 ) : (
-                                                    <span className="badge badge-warning">Pending</span>
+                                                    <span className="status-icon pending">⏳</span>
                                                 )}
                                             </td>
                                             <td>

@@ -2,6 +2,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -22,21 +24,29 @@ app.use(cookieParser());
 
 // CORS
 app.use(cors({
-  origin: 'http://localhost:3000', // React app URL
+  origin: 'http://localhost:3000',
   credentials: true
 }));
 
-// Mount routes
+// Swagger Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'ShopHub API Documentation',
+  customfavIcon: 'https://swagger.io/favicon.ico'
+}));
+
+// Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/orders', require('./routes/orders'));
 app.use('/api/users', require('./routes/users'));
 
-// Test route
+// Root route
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'API is running...',
-    version: '1.0.0'
+    message: 'ShopHub API is running',
+    version: '1.0.0',
+    documentation: 'http://localhost:5000/api-docs'
   });
 });
 
@@ -46,5 +56,6 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`\n🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`📚 API Documentation: http://localhost:${PORT}/api-docs\n`);
 });
